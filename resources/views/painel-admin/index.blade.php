@@ -1,4 +1,6 @@
-@extends('layouts.template')
+@extends('template.painel-admin')
 @section('content')
-    Home do admin
+<?php 
+?>
+Home do Admin
 @endsection

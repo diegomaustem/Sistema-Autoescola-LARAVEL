@@ -36,7 +36,7 @@ class UsuarioController extends Controller
             
         }else{
             echo "<script language='javascript'> window.alert('Dados Incorretos!') </script>";
-            return view('index');
+            return view('home.index');
         }
         
        
@@ -46,7 +46,7 @@ class UsuarioController extends Controller
     public function logout(){
        @session_start();
        @session_destroy();
-       return view('index');
+       return view('home.index');
     }
 
 }
