@@ -1,3 +1,13 @@
+<?php 
+
+    use App\Models\usuario;
+
+    @session_start();
+    $id_usuario = @$_SESSION['id_usuario'];
+    $usuario = usuario::find($id_usuario);
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -9,7 +19,7 @@
         <meta name="description" content="">
         <meta name="author" content="Curso Udemy">
 
-        <title>Painel Administrativo</title>
+        <title>@yield('title')</title>
 
         <!-- Custom fonts for this template-->
         <link href="{{ URL::asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -28,8 +38,8 @@
         <script src="{{ URL::asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
         
         
-         <link rel="shortcut icon" href="../../img/favicon0.ico" type="image/x-icon">
-    <link rel="icon" href="../../img/favicon0.ico" type="image/x-icon">
+         <link rel="shortcut icon" href="{{ URL::asset('img/favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ URL::asset('img/favicon.ico') }}" type="image/x-icon">
 
     </head>
 
@@ -42,7 +52,7 @@
             <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
                 <!-- Sidebar - Brand -->
-                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('admin.index')}}">
 
                     <div class="sidebar-brand-text mx-3">Administrador</div>
                 </a>
@@ -69,7 +79,7 @@
                     </a>
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" href="">Instrutores</a>
+                            <a class="collapse-item" href="{{route('instrutores.index')}}">Instrutores</a>
                             <a class="collapse-item" href="">Recepcionistas</a>
                         </div>
                     </div>
@@ -157,8 +167,8 @@
                             <!-- Nav Item - User Information -->
                             <li class="nav-item dropdown no-arrow">
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">Nome do usuario</span>
-                                    <img class="img-profile rounded-circle" src="">
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{$usuario->nome}}</span>
+                                    <img class="img-profile rounded-circle" src="{{URL::asset('img/sem-foto.jpg')}}">
 
                                 </a>
                                 <!-- Dropdown - User Information -->
@@ -169,7 +179,7 @@
                                     </a>
 
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="">
+                                    <a class="dropdown-item" href="{{route('usuarios.logout')}}">
                                         <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-danger"></i>
                                         Sair
                                     </a>
@@ -211,7 +221,7 @@
 
         <!--  Modal Perfil-->
         <div class="modal fade" id="ModalPerfil" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Editar Perfil</h5>
@@ -222,32 +232,29 @@
 
 
 
-                    <form id="form-perfil" method="POST" enctype="multipart/form-data">
+                    <form id="form-perfil" method="POST" action="{{route('admin.editar', $usuario)}}">
+                    @csrf
+                    @method('put');
                         <div class="modal-body">
-
-                            <div class="row">
-                                <div class="col-md-6 col-sm-12">
                                     <div class="form-group">
                                         <label >Nome</label>
-                                        <input value="" type="text" class="form-control" id="nome" name="nome" placeholder="Nome">
+                                        <input value="{{$usuario->nome}}" type="text" class="form-control" id="nome" name="nome" placeholder="Nome">
                                     </div>
 
                                     <div class="form-group">
                                         <label >CPF</label>
-                                        <input value="" type="text" class="form-control" id="cpf" name="cpf" placeholder="CPF">
+                                        <input value="{{$usuario->cpf}}" type="text" class="form-control" id="cpf" name="cpf" placeholder="CPF">
                                     </div>
 
                                     <div class="form-group">
                                         <label >Email</label>
-                                        <input value="" type="email" class="form-control" id="email" name="email" placeholder="Email">
+                                        <input value="{{$usuario->usuario}}" type="email" class="form-control" id="usuario" name="usuario" placeholder="Email">
                                     </div>
 
                                     <div class="form-group">
                                         <label >Senha</label>
-                                        <input value="" type="password" class="form-control" id="text" name="senha" placeholder="Senha">
+                                        <input value="{{$usuario->senha}}" type="text" class="form-control" id="senha" name="senha" placeholder="Senha">
                                     </div>
-                                </div>
-                            </div> 
 
                         </div>
                         <div class="modal-footer">
@@ -282,6 +289,11 @@
         <!-- Page level custom scripts -->
         <script src="{{ URL::asset('js/demo/datatables-demo.js') }}"></script>
         <script src="{{ URL::asset('js/demo/chart-pie-demo.js') }}"></script>
+
+        <!-- Script de mascaras -->
+        <script src="{{ URL::asset('js/mascaras.js') }}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+        
 
     </body>
 
