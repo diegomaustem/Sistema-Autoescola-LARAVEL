@@ -13,7 +13,7 @@ if(!isset($id)){
 
 ?>
 
-<a href="" type="button" class="mt-4 mb-4 btn btn-primary">Inserir Instrutor</a>
+<a href="{{route('instrutores.inserir')}}" type="button" class="mt-4 mb-4 btn btn-primary">Inserir Instrutor</a>
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
@@ -39,11 +39,11 @@ if(!isset($id)){
             <td>{{$instrutor->email}}</td>
             <td>{{$instrutor->cpf}}</td>
             <td>{{$instrutor->telefone}}</td>
-            <td>{{$instrutor->vencimento}}</td>
-            <td>{{$instrutor->vencimento}}</td>
+            <td>{{$instrutor->data_venc}}</td>
+            <td>{{$instrutor->credencial}}</td>
             <td>
-            <a href="{{route('instrutures.edit', $instrutor)}}"><i class="fas fa-edit text-info mr-1"></i></a>
-            <a href="{{route('instrutures.modal', $instrutor)}}"><i class="fas fa-trash text-danger mr-1"></i></a>
+            <a href=""><i class="fas fa-edit text-info mr-1"></i></a>
+            <a href=""><i class="fas fa-trash text-danger mr-1"></i></a>
             </td>
         </tr>
         @endforeach 
