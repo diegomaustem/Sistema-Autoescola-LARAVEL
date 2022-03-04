@@ -34,12 +34,15 @@ if(!isset($id)){
 
       <tbody>
       @foreach($instrutures as $instrutor)
+        <?php 
+          $data = implode('/', array_reverse(explode('-', $instrutor->data_venc)));
+        ?>
          <tr>
             <td>{{$instrutor->nome}}</td>
             <td>{{$instrutor->email}}</td>
             <td>{{$instrutor->cpf}}</td>
             <td>{{$instrutor->telefone}}</td>
-            <td>{{$instrutor->data_venc}}</td>
+            <td>{{$data}}</td>
             <td>{{$instrutor->credencial}}</td>
             <td>
             <a href=""><i class="fas fa-edit text-info mr-1"></i></a>

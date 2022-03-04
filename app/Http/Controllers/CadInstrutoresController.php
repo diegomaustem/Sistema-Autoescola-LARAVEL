@@ -31,12 +31,25 @@ class CadInstrutoresController extends Controller
        $tabela->endereco = $request->endereco;
        $tabela->credencial = $request->credencial;
        $tabela->data_venc = $request->data;
+
+       $itens = instrutore::where('cpf', '=', $tabela->cpf )->orwhere('credencial', '=', $tabela->credencial)->orwhere('email', '=', $tabela->email)->count();
+       
+       if($itens > 0){
+           echo "<script language='javascript'> window.alert('Instrutor já existe na base de dados!') </script>";
+           return view('painel-admin.instrutores.create');
+       }
+
        $tabela->save();
        return redirect()->route('instrutores.index');
+   }
 
+   public function edit()
+   {
 
+   }
 
-
-
+   public function update()
+   {
+       
    }
 }
