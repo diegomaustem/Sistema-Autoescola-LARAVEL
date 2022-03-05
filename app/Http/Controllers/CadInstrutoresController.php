@@ -43,13 +43,37 @@ class CadInstrutoresController extends Controller
        return redirect()->route('instrutores.index');
    }
 
-   public function edit()
+   public function edit(instrutore $instrutor)
    {
+       return view('painel-admin.instrutores.edit', ['instrutor' => $instrutor]);
 
    }
 
-   public function update()
+   public function update(Request $request, instrutore $instrutor)
    {
-       
+
+    $instrutor->nome = $request->nome;
+    $instrutor->email = $request->email;
+    $instrutor->cpf = $request->cpf;
+    $instrutor->telefone = $request->telefone;
+    $instrutor->endereco = $request->endereco;
+    $instrutor->credencial = $request->credencial;
+    $instrutor->data_venc = $request->data;
+
+    $oldCpf = $request->oldCpf;
+
+    if($oldCpf != $instrutor->cpf) {
+
+        $itens = instrutore::where('cpf', '=', $instrutor->cpf)->count();
+
+        if($itens > 0){
+            echo "<script language='javascript'> window.alert('CPF já existe.') </script>";
+            return view('painel-admin.instrutores.edit', ['instrutor' => $instrutor]);
+        }
+    }
+
+    $instrutor->save();
+    return redirect()->route('instrutores.index');
+    
    }
 }

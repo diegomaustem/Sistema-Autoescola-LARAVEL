@@ -45,7 +45,7 @@ if(!isset($id)){
             <td>{{$data}}</td>
             <td>{{$instrutor->credencial}}</td>
             <td>
-            <a href=""><i class="fas fa-edit text-info mr-1"></i></a>
+            <a href="{{route('instrutores.edit', $instrutor)}}"><i class="fas fa-edit text-info mr-1"></i></a>
             <a href=""><i class="fas fa-trash text-danger mr-1"></i></a>
             </td>
         </tr>

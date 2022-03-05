@@ -23,6 +23,7 @@ Route::get('/',[UsuarioController::class, 'logout'])->name('usuarios.logout');
 
 Route::get('instrutores',[CadInstrutoresController::class, 'index'])->name('instrutores.index');
 Route::post('instrutores.insert',[CadInstrutoresController::class, 'insert'])->name('instrutores.insert');
+Route::get('instrutores/inserir',[CadInstrutoresController::class, 'create'])->name('instrutores.inserir');
 Route::get('instrutores/{instrutor}/edit',[CadInstrutoresController::class, 'edit'])->name('instrutores.edit');
 Route::put('instrutores/{instrutor}',[CadInstrutoresController::class, 'update'])->name('instrutores.update');
 
